@@ -12,7 +12,7 @@ usuarios_cadastrados = dict()
 def guess_password(real):
     chars = string.ascii_lowercase + string.digits + string.ascii_uppercase + "<>?=_.,;:çÇ~´[!@#$\%¨&*()*-+/"
     attempts = 0
-    for password_length in range(6, 7):
+    for password_length in range(3, 5):
         for guess in itertools.product(chars, repeat=password_length):
             attempts += 1
             guess = ''.join(guess)
@@ -23,7 +23,7 @@ def guess_password(real):
                 return 'senha é {}. encontrado em {} tentativas.'.format(guess, attempts)
 
 
-f = open("login.txt", "r")
+f = open("senhasgravadas.txt", "r")
 fr = f.read().splitlines()
 for line in fr:
     (key, val) = line.split(";")
@@ -33,7 +33,7 @@ for usuario in usuarios_cadastrados:
     start = time.time()
     print("Usuario: " + str(usuario))
     print("Hash: " + usuarios_cadastrados.get(usuario))
-    print("Senha: " + guess_password(usuarios_cadastrados.get(usuario)))
+    print("Senha: ", guess_password(usuarios_cadastrados.get(usuario)))
     end = time.time()
     total = end-start
     print("Tempo: " + str(total) + "s")
